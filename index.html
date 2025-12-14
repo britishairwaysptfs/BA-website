@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Virtual Airline Booking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1 class="title">✈️ Available Flights</h1>
+
+  <div class="top-buttons">
+    <a href="checkin.html">
+      <button>🛄 Go to Check-In</button>
+    </a>
+  </div>
+
+  <div class="flights-container">
+    <div class="flight" onclick="openPopup('VA101', 'JFK → LAX')">
+      <strong>VA101</strong><br>JFK → LAX
+    </div>
+
+    <div class="flight" onclick="openPopup('VA202', 'LHR → CDG')">
+      <strong>VA202</strong><br>LHR → CDG
+    </div>
+  </div>
+
+  <!-- CONFIRM POPUP -->
+  <div id="popup" class="popup">
+    <div class="popup-box">
+      <p id="popup-text"></p>
+      <div class="popup-buttons">
+        <button class="yes" onclick="confirmBooking()">Confirm</button>
+        <button class="no" onclick="closePopup()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL POPUP -->
+  <div id="email-popup" class="popup">
+    <div class="popup-box">
+      <p>Enter your email to receive your booking code:</p>
+      <input type="email" id="email-input" placeholder="your@email.com">
+      <div class="popup-buttons">
+        <button class="yes" onclick="sendBookingEmail()">Send</button>
+        <button class="no" onclick="closeEmailPopup()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
