@@ -13,7 +13,7 @@ body {
   color: white;
 
   /* Background image */
-  background-image: url("background.jpg");
+  background-image: url("background.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -179,3 +179,4 @@ input {
 .nav-btn:hover {
   transform: translateY(-3px);
 }
+
