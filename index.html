@@ -3,31 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>British Airways PTFS | Book a Flight</title>
-
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="header">
     <h1 class="logo">British Airways PTFS</h1>
-
-    <!-- CHECK-IN BUTTON -->
     <a href="checkin.html" class="checkin-btn">Check-In</a>
   </header>
 
-  <!-- MAIN -->
   <main>
     <h2 class="title">✈️ Available Flights</h2>
 
-    <!-- FLIGHTS -->
     <div class="flights-container">
-
-      <!-- EDIT FLIGHTS HERE -->
       <div class="flight" onclick="openPopup('BA101', 'LHR → JFK')">
         <strong>BA101</strong><br>
         LHR → JFK
@@ -42,7 +31,6 @@
         <strong>BA303</strong><br>
         LHR → DXB
       </div>
-
     </div>
   </main>
 
@@ -51,6 +39,8 @@
     <div class="popup-box">
       <p id="popup-text"></p>
 
+      <input type="email" id="emailInput" placeholder="Enter your email" style="margin-top:10px; padding:5px; width:90%;">
+
       <div class="popup-buttons">
         <button class="yes" onclick="confirmBooking()">Confirm</button>
         <button class="no" onclick="closePopup()">Cancel</button>
@@ -58,7 +48,13 @@
     </div>
   </div>
 
-  <!-- SCRIPT (MUST BE LAST) -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+    })();
+  </script>
+
   <script src="script.js"></script>
 
 </body>
