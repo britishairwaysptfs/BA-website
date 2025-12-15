@@ -25,7 +25,7 @@ function confirmBooking() {
   bookingCode = generateCode();
 
   // Send email via EmailJS
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+  emailjs.send("service_vq5bl09", "template_8ye9kid", {
     to_email: email,
     flight: selectedFlight,
     route: selectedRoute,
@@ -84,3 +84,4 @@ function sendCheckinToDiscord(name, code) {
     })
   });
 }
+
