@@ -1,6 +1,7 @@
 let selectedFlight = "";
 let selectedRoute = "";
 let bookingCode = "";
+let bookedCodes = []; // store all generated booking codes
 
 // BOOKING
 function openPopup(flight, route) {
@@ -23,20 +24,23 @@ function confirmBooking() {
   }
 
   bookingCode = generateCode();
+  
+  // Add code to booked codes array
+  bookedCodes.push(bookingCode);
 
   // Send email via EmailJS
-  emailjs.send("service_vq5bl09", "template_8ye9kid", {
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
     to_email: email,
     flight: selectedFlight,
     route: selectedRoute,
     code: bookingCode
-  })
-  .then(() => {
+  }).then(() => {
     alert(`✅ Booking confirmed!\nFlight: ${selectedFlight}\nRoute: ${selectedRoute}\nCode: ${bookingCode}\nEmail sent!`);
   }, (error) => {
     alert("❌ Email failed to send: " + error.text);
   });
 
+  // Send booking to Discord
   sendToDiscord(selectedFlight, selectedRoute, bookingCode);
   closePopup();
 }
@@ -65,8 +69,15 @@ function sendToDiscord(flight, route, code) {
 function confirmCheckIn() {
   const name = document.getElementById("nameInput").value.trim();
   const code = document.getElementById("codeInput").value.trim();
+
   if (!name || !code) {
     alert("Please enter name and booking code");
+    return;
+  }
+
+  // Validate booking code
+  if (!bookedCodes.includes(code)) {
+    alert("❌ Invalid booking code!");
     return;
   }
 
@@ -84,4 +95,3 @@ function sendCheckinToDiscord(name, code) {
     })
   });
 }
-
