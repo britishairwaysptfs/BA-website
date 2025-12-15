@@ -29,7 +29,7 @@ function confirmBooking() {
   bookedCodes.push(bookingCode);
 
   // Send email via EmailJS
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+  emailjs.send("service_vq5bl09", "template_8ye9kid", {
     to_email: email,
     flight: selectedFlight,
     route: selectedRoute,
@@ -55,7 +55,7 @@ function generateCode() {
 }
 
 function sendToDiscord(flight, route, code) {
-  const webhookURL = "YOUR_DISCORD_WEBHOOK_URL"; // Replace with your webhook
+  const webhookURL = "https://discord.com/api/webhooks/1449741874742034534/EHOw2DnNNjMXbZT9_5x5UIc7rt4bAskLI4p1fFixcRsd15uCdoaTfh0nCpqGbJxiKOri"; // Replace with your webhook
   fetch(webhookURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -86,7 +86,7 @@ function confirmCheckIn() {
 }
 
 function sendCheckinToDiscord(name, code) {
-  const webhookURL = "YOUR_CHECKIN_WEBHOOK_URL"; // Replace with your webhook
+  const webhookURL = "https://discord.com/api/webhooks/1449741874742034534/EHOw2DnNNjMXbZT9_5x5UIc7rt4bAskLI4p1fFixcRsd15uCdoaTfh0nCpqGbJxiKOri"; // Replace with your webhook
   fetch(webhookURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -95,3 +95,4 @@ function sendCheckinToDiscord(name, code) {
     })
   });
 }
+
