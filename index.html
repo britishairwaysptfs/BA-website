@@ -2,33 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Virtual Airline Booking</title>
+  <title>British Airways PTFS | Book a Flight</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-  <h1 class="title">✈️ Available Flights</h1>
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">British Airways PTFS</h1>
 
-  <div class="top-buttons">
-    <a href="checkin.html">
-      <button>🛄 Go to Check-In</button>
-    </a>
-  </div>
+    <!-- CHECK-IN BUTTON -->
+    <a href="checkin.html" class="checkin-btn">Check-In</a>
+  </header>
 
-  <div class="flights-container">
-    <div class="flight" onclick="openPopup('VA101', 'JFK → LAX')">
-      <strong>VA101</strong><br>JFK → LAX
+  <!-- MAIN -->
+  <main>
+    <h2 class="title">✈️ Available Flights</h2>
+
+    <!-- FLIGHTS -->
+    <div class="flights-container">
+
+      <!-- EDIT FLIGHTS HERE -->
+      <div class="flight" onclick="openPopup('BA101', 'LHR → JFK')">
+        <strong>BA101</strong><br>
+        LHR → JFK
+      </div>
+
+      <div class="flight" onclick="openPopup('BA202', 'LHR → CDG')">
+        <strong>BA202</strong><br>
+        LHR → CDG
+      </div>
+
+      <div class="flight" onclick="openPopup('BA303', 'LHR → DXB')">
+        <strong>BA303</strong><br>
+        LHR → DXB
+      </div>
+
     </div>
+  </main>
 
-    <div class="flight" onclick="openPopup('VA202', 'LHR → CDG')">
-      <strong>VA202</strong><br>LHR → CDG
-    </div>
-  </div>
-
-  <!-- CONFIRM POPUP -->
+  <!-- BOOKING POPUP -->
   <div id="popup" class="popup">
     <div class="popup-box">
       <p id="popup-text"></p>
+
       <div class="popup-buttons">
         <button class="yes" onclick="confirmBooking()">Confirm</button>
         <button class="no" onclick="closePopup()">Cancel</button>
@@ -36,19 +58,8 @@
     </div>
   </div>
 
-  <!-- EMAIL POPUP -->
-  <div id="email-popup" class="popup">
-    <div class="popup-box">
-      <p>Enter your email to receive your booking code:</p>
-      <input type="email" id="email-input" placeholder="your@email.com">
-      <div class="popup-buttons">
-        <button class="yes" onclick="sendBookingEmail()">Send</button>
-        <button class="no" onclick="closeEmailPopup()">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <!-- SCRIPT (MUST BE LAST) -->
   <script src="script.js"></script>
+
 </body>
 </html>
