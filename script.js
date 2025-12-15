@@ -6,8 +6,8 @@ let bookedCodes = []; // stores valid booking codes (session-based)
 /* =========================
    DISCORD WEBHOOKS
    ========================= */
-const BOOKING_WEBHOOK_URL = "PASTE_BOOKING_WEBHOOK_HERE";
-const CHECKIN_WEBHOOK_URL = "PASTE_CHECKIN_WEBHOOK_HERE";
+const BOOKING_WEBHOOK_URL = "https://discord.com/api/webhooks/1449494895915176119/MPcthVfsCUIaOeVUKX1w98bTNBtVUPeHOnf6-6ppKR1H2ql9zvaqyaL1zmVq-eALMhIw";
+const CHECKIN_WEBHOOK_URL = "https://discord.com/api/webhooks/1449741874742034534/EHOw2DnNNjMXbZT9_5x5UIc7rt4bAskLI4p1fFixcRsd15uCdoaTfh0nCpqGbJxiKOri";
 
 /* =========================
    BOOKING FUNCTIONS
@@ -39,7 +39,7 @@ function confirmBooking() {
   bookedCodes.push(bookingCode);
 
   // Send email
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+  emailjs.send("template_8ye9kid", "B5jlS957IJonuuop9", {
     to_email: email,
     flight: selectedFlight,
     route: selectedRoute,
@@ -132,3 +132,4 @@ function sendCheckinToDiscord(name, code) {
     })
   });
 }
+
