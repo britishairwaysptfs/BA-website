@@ -55,7 +55,7 @@ function generateCode() {
 }
 
 function sendToDiscord(flight, route, code) {
-  const webhookURL = "https://discord.com/api/webhooks/1449741874742034534/EHOw2DnNNjMXbZT9_5x5UIc7rt4bAskLI4p1fFixcRsd15uCdoaTfh0nCpqGbJxiKOri"; // Replace with your webhook
+  const webhookURL = "https://discord.com/api/webhooks/1449494895915176119/MPcthVfsCUIaOeVUKX1w98bTNBtVUPeHOnf6-6ppKR1H2ql9zvaqyaL1zmVq-eALMhIw"; // Replace with your webhook
   fetch(webhookURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -95,4 +95,5 @@ function sendCheckinToDiscord(name, code) {
     })
   });
 }
+
 
