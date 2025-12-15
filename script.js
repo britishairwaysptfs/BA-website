@@ -1,3 +1,4 @@
+alert("script.js loaded on index");
 /*************************
   BOOKING (INDEX PAGE)
 *************************/
@@ -293,4 +294,5 @@ function generateBoardingPass(name, flight, route, code) {
 
   doc.save(`BoardingPass-${code}.pdf`);
 }
+
 
