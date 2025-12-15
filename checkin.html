@@ -4,33 +4,21 @@
   <meta charset="UTF-8">
   <title>Check-In | British Airways PTFS</title>
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
   <h1 class="title">🛂 Online Check-In</h1>
 
   <div class="checkin-box">
-    <input
-      type="text"
-      id="nameInput"
-      placeholder="Passenger Name"
-    />
-
-    <input
-      type="text"
-      id="codeInput"
-      placeholder="Booking Code (e.g. BA-ABCDE)"
-    />
-
-    <!-- THIS BUTTON IS CRITICAL -->
+    <input id="nameInput" type="text" placeholder="Passenger Name">
+    <input id="codeInput" type="text" placeholder="Booking Code (e.g. BA-ABCDE)">
     <button onclick="confirmCheckIn()">Check In</button>
+    <div style="margin-top: 10px;">
+      <a href="index.html">⬅ Back to Flights</a>
+    </div>
   </div>
 
-  <!-- jsPDF MUST be first -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <!-- Your script -->
   <script src="script.js"></script>
-
 </body>
 </html>
