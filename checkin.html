@@ -1,20 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Check-In</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Online Check-In | British Airways PTFS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1 class="title">🛄 Online Check-In</h1>
-
-  <div class="popup-box" style="margin: 100px auto;">
-    <input id="checkin-name" placeholder="Your name"><br><br>
-    <input id="checkin-code" placeholder="Booking code"><br><br>
-    <button class="yes" onclick="checkIn()">Check In</button>
+  <!-- HEADER -->
+  <div class="header">
+    <h1 class="title">Online Check-In ✈️</h1>
   </div>
 
+  <!-- CHECK-IN CARD -->
+  <div class="flights-container">
+    <div class="flight" style="cursor: default;">
+
+      <strong>Passenger Check-In</strong>
+      <p style="margin-top: 10px;">Enter your details below</p>
+
+      <input
+        id="nameInput"
+        type="text"
+        placeholder="Full name"
+        style="margin-top: 15px;"
+      />
+
+      <input
+        id="codeInput"
+        type="text"
+        placeholder="Booking code (e.g. BA-XXXXX)"
+        style="margin-top: 10px;"
+      />
+
+      <div style="margin-top: 20px;">
+        <button class="yes" onclick="confirmCheckIn()">Check In</button>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <a href="index.html" class="nav-btn">⬅ Back to Flights</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- jsPDF MUST be before script.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Main Script -->
   <script src="script.js"></script>
+
 </body>
 </html>
