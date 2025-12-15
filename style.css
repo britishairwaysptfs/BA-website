@@ -1,183 +1,138 @@
-/* =========================
-   GLOBAL RESET
-========================= */
-* {
-  box-sizing: border-box;
+/* GENERAL STYLES */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  min-height: 100vh;
+a {
   color: white;
-
-  /* Background image */
-  background-image: url("background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  text-decoration: none;
 }
 
-/* Dark overlay for readability */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 20, 40, 0.6);
-  z-index: -1;
-}
-
-/* =========================
-   HEADER / BRANDING
-========================= */
+/* HEADER */
 .header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
-  padding: 25px;
+  padding: 20px 40px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .logo {
-  height: 50px;
+  font-size: 28px;
+  font-weight: bold;
 }
 
+.checkin-btn {
+  background-color: #ff4b2b;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* TITLES */
 .title {
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #ffffff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  margin-top: 30px;
+  font-size: 24px;
 }
 
-/* =========================
-   FLIGHTS
-========================= */
+/* FLIGHTS */
 .flights-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-top: 50px;
   flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 0 20px;
 }
 
 .flight {
-  width: 240px;
-  padding: 22px;
-  border-radius: 16px;
-
-  /* Glass effect */
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  text-align: center;
+  background: white;
+  color: black;
+  width: 200px;
+  padding: 20px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.flight strong {
-  font-size: 20px;
-  display: block;
-  margin-bottom: 8px;
-  color: #ffffff;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .flight:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* =========================
-   BUTTONS
-========================= */
-button {
-  font-size: 14px;
-  padding: 12px 22px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.2s ease;
-}
-
-button.yes {
-  background: linear-gradient(135deg, #d4af37, #b8962e); /* BA gold accent */
-  color: black;
-}
-
-button.no {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-button:hover {
-  transform: translateY(-3px);
-}
-
-/* =========================
-   POPUPS
-========================= */
+/* POPUP */
 .popup {
+  display: none; /* Hidden by default */
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
 }
 
 .popup-box {
-  width: 340px;
-  padding: 26px;
-  border-radius: 18px;
-
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-
-  color: white;
-  text-align: center;
+  background: white;
+  color: black;
+  width: 320px;
+  margin: 150px auto;
+  padding: 20px;
+  border-radius: 12px;
 }
 
 .popup-buttons {
-  margin-top: 25px;
   display: flex;
   justify-content: space-around;
+  margin-top: 20px;
 }
 
-/* =========================
-   INPUTS
-========================= */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 8px;
+button {
+  padding: 10px 20px;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
   font-size: 14px;
 }
 
-/* =========================
-   NAV BUTTON
-========================= */
-.nav-btn {
-  margin-top: 35px;
-  display: inline-block;
-  background: linear-gradient(135deg, #1b2a49, #0d1b2a);
-  padding: 14px 28px;
-  border-radius: 10px;
-  text-decoration: none;
+button.yes {
+  background: #28a745;
   color: white;
-  font-weight: 600;
-  transition: transform 0.2s ease;
 }
 
-.nav-btn:hover {
-  transform: translateY(-3px);
+button.no {
+  background: #dc3545;
+  color: white;
 }
 
+/* CHECK-IN BOX */
+.checkin-box {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
+.checkin-box input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  width: 250px;
+  font-size: 14px;
+}
+
+.checkin-box button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  width: 150px;
+}
+
+.checkin-box a {
+  margin-top: 10px;
+  color: #ff4b2b;
+  font-weight: bold;
+}
