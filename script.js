@@ -1,17 +1,30 @@
+/* =========================
+   CONFIG
+========================= */
+
+// EmailJS
+const EMAIL_SERVICE_ID = "service_vq5bl09";
+const EMAIL_TEMPLATE_ID = "template_8ye9kid";
+const EMAIL_PUBLIC_KEY = "tNAkQInOSkq8sH1UC";
+
+// Discord webhooks
+const BOOKING_WEBHOOK =
+  "https://discord.com/api/webhooks/BOOKING_WEBHOOK_HERE";
+const CHECKIN_WEBHOOK =
+  "https://discord.com/api/webhooks/CHECKIN_WEBHOOK_HERE";
+
+/* =========================
+   GLOBAL STORAGE
+========================= */
+
 let selectedFlight = "";
 let selectedRoute = "";
-let bookingCode = "";
-let bookedCodes = []; // stores valid booking codes (session-based)
+let bookingCodes = JSON.parse(localStorage.getItem("bookingCodes")) || {};
+let checkedInCodes = JSON.parse(localStorage.getItem("checkedInCodes")) || {};
 
 /* =========================
-   DISCORD WEBHOOKS
-   ========================= */
-const BOOKING_WEBHOOK_URL = "https://discord.com/api/webhooks/1449494895915176119/MPcthVfsCUIaOeVUKX1w98bTNBtVUPeHOnf6-6ppKR1H2ql9zvaqyaL1zmVq-eALMhIw";
-const CHECKIN_WEBHOOK_URL = "https://discord.com/api/webhooks/1449741874742034534/EHOw2DnNNjMXbZT9_5x5UIc7rt4bAskLI4p1fFixcRsd15uCdoaTfh0nCpqGbJxiKOri";
-
-/* =========================
-   BOOKING FUNCTIONS
-   ========================= */
+   FLIGHT BOOKING
+========================= */
 
 function openPopup(flight, route) {
   selectedFlight = flight;
@@ -25,58 +38,70 @@ function openPopup(flight, route) {
 
 function closePopup() {
   document.getElementById("popup").style.display = "none";
+  document.getElementById("email-popup").style.display = "none";
 }
 
 function confirmBooking() {
-  const email = document.getElementById("emailInput").value.trim();
-
-  if (!email) {
-    alert("Please enter your email");
-    return;
-  }
-
-  bookingCode = generateCode();
-  bookedCodes.push(bookingCode);
-
-  // Send email
-  emailjs.send("template_8ye9kid", "B5jlS957IJonuuop9", {
-    to_email: email,
-    flight: selectedFlight,
-    route: selectedRoute,
-    code: bookingCode
-  }).then(() => {
-    alert(
-      `✅ Booking confirmed!\n\n` +
-      `Flight: ${selectedFlight}\n` +
-      `Route: ${selectedRoute}\n` +
-      `Code: ${bookingCode}\n\n` +
-      `📧 Booking code sent by email`
-    );
-  }).catch(error => {
-    alert("❌ Email failed to send: " + error.text);
-  });
-
-  sendBookingToDiscord(selectedFlight, selectedRoute, bookingCode);
-  closePopup();
+  document.getElementById("popup").style.display = "none";
+  document.getElementById("email-popup").style.display = "block";
 }
+
+/* =========================
+   EMAIL + CODE
+========================= */
 
 function generateCode() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let code = "BA-";
-
   for (let i = 0; i < 5; i++) {
     code += chars[Math.floor(Math.random() * chars.length)];
   }
-
   return code;
 }
 
-/* =========================
-   DISCORD — BOOKINGS
-   ========================= */
+function submitEmail() {
+  const email = document.getElementById("email-input").value.trim();
+  if (!email) {
+    alert("❌ Please enter an email");
+    return;
+  }
 
-function sendBookingToDiscord(flight, route, code) {
-  fetch(BOOKING_WEBHOOK_URL, {
+  const code = generateCode();
+
+  bookingCodes[code] = {
+    flight: selectedFlight,
+    route: selectedRoute,
+    email: email,
+  };
+
+  localStorage.setItem("bookingCodes", JSON.stringify(bookingCodes));
+
+  emailjs
+    .send(
+      EMAIL_SERVICE_ID,
+      EMAIL_TEMPLATE_ID,
+      {
+        to_email: email,
+        flight: selectedFlight,
+        route: selectedRoute,
+        code: code,
+      },
+      EMAIL_PUBLIC_KEY
+    )
+    .then(() => {
+      alert("✅ Booking confirmed! Check your email.");
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("❌ Error sending email");
+    });
+
+  sendBookingToDiscord(selectedFlight, selectedRoute, code, email);
+  closePopup();
+}
+
+function sendBookingToDiscord(flight, route, code, email) {
+  fetch(BOOKING_WEBHOOK, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -84,52 +109,63 @@ function sendBookingToDiscord(flight, route, code) {
         `✈️ **New Booking**\n` +
         `Flight: ${flight}\n` +
         `Route: ${route}\n` +
-        `Code: ${code}`
-    })
+        `Code: ${code}\n` +
+        `Email: ${email}`,
+    }),
   });
 }
 
 /* =========================
-   CHECK-IN FUNCTIONS
-   ========================= */
+   CHECK-IN
+========================= */
 
-function confirmCheckIn() {
-  const name = document.getElementById("nameInput").value.trim();
-  const code = document.getElementById("codeInput").value.trim();
+function checkIn() {
+  const code = document.getElementById("checkin-code").value.trim();
 
-  if (!name || !code) {
-    alert("Please enter your name and booking code");
-    return;
-  }
-
-  if (!bookedCodes.includes(code)) {
+  if (!bookingCodes[code]) {
     alert("❌ Invalid booking code");
     return;
   }
 
-  alert(
-    `✅ Check-in successful!\n\n` +
-    `Name: ${name}\n` +
-    `Code: ${code}`
-  );
+  if (checkedInCodes[code]) {
+    alert("⚠️ This code has already been used");
+    return;
+  }
 
-  sendCheckinToDiscord(name, code);
+  document.getElementById("name-popup").style.display = "block";
 }
 
-/* =========================
-   DISCORD — CHECK-IN
-   ========================= */
+function confirmCheckIn() {
+  const code = document.getElementById("checkin-code").value.trim();
+  const name = document.getElementById("passenger-name").value.trim();
 
-function sendCheckinToDiscord(name, code) {
-  fetch(CHECKIN_WEBHOOK_URL, {
+  if (!name) {
+    alert("❌ Enter your name");
+    return;
+  }
+
+  checkedInCodes[code] = true;
+  localStorage.setItem("checkedInCodes", JSON.stringify(checkedInCodes));
+
+  sendCheckInToDiscord(code, name);
+
+  alert("✅ Check-in successful!");
+  document.getElementById("name-popup").style.display = "none";
+}
+
+function sendCheckInToDiscord(code, name) {
+  const booking = bookingCodes[code];
+
+  fetch(CHECKIN_WEBHOOK, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       content:
-        `🛂 **Passenger Checked In**\n` +
+        `🛂 **Check-in Confirmed**\n` +
         `Name: ${name}\n` +
-        `Booking Code: ${code}`
-    })
+        `Flight: ${booking.flight}\n` +
+        `Route: ${booking.route}\n` +
+        `Code: ${code}`,
+    }),
   });
 }
-
